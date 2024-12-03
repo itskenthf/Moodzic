@@ -12,6 +12,8 @@
 - Font Awesome 6.6.0
 
 ### Audio Related
+- to upload music into database:
+  - 'chmod 777 uploads' into terminal to give permission
 - jPlayer
   - Supported formats: MP3, M4A, OGA, FLAC, WAV, WebMA
   - Audio playlist support

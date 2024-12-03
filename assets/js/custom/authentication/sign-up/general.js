@@ -64,13 +64,6 @@ var KTSignupGeneral = function() {
                             }
                         }
                     },
-                    toc: {
-                        validators: {
-                            notEmpty: {
-                                message: "You must accept the terms and conditions"
-                            }
-                        }
-                    },
                     username: {
                         validators: {
                             notEmpty: {
@@ -177,13 +170,6 @@ var KTSignupGeneral = function() {
                                     return e.querySelector('[name="password"]').value
                                 },
                                 message: "The password and its confirm are not the same"
-                            }
-                        }
-                    },
-                    toc: {
-                        validators: {
-                            notEmpty: {
-                                message: "You must accept the terms and conditions"
                             }
                         }
                     },
@@ -298,4 +284,3 @@ function doCreateAccount(dataForm)
         },
     });
 }
-
