@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<?php include 'master-ui/header.php'; ?>
+	<link rel="stylesheet" href="<?php echo base_url(); ?>/assetsmoods/css/button-styles.css">
 	<!--begin::Body-->
 	<body id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
 		<!--begin::Root-->
@@ -98,15 +99,13 @@
 									<!--end::Accept-->
 									<!--begin::Submit button-->
 									<div class="d-grid mb-10">
-										<button type="submit" id="kt_sign_up_submit" class="btn btn-primary">
-											<!--begin::Indicator label-->
-											<span class="indicator-label">Log In</span>
-											<!--end::Indicator label-->
-											<!--begin::Indicator progress-->
-											<span class="indicator-progress">Please wait... 
-											<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-											<!--end::Indicator progress-->
-										</button>
+										<a href="#" class="button type--B" onclick="this.closest('form').submit(); return false;">
+											<div class="button__line"></div>
+											<div class="button__line"></div>
+											<span class="button__text">LOGIN</span>
+											<div class="button__drow1"></div>
+											<div class="button__drow2"></div>
+										</a>
 									</div>
 									<!--end::Submit button-->
 									<!--begin::Sign up-->

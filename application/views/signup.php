@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<?php include 'master-ui/header.php'; ?>
+	<link rel="stylesheet" href="<?php echo base_url(); ?>/assetsmoods/css/button-styles.css">
 	<!--begin::Body-->
 	<body id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
 		<!--begin::Root-->
@@ -78,20 +79,18 @@
 									<!--end::Input group=-->
 									
 									<!--begin::Submit button-->
-									<div class="d-grid mb-10">
-										<button type="submit" id="kt_sign_up_submit" class="btn btn-primary">
-											<!--begin::Indicator label-->
-											<span class="indicator-label">Sign up</span>
-											<!--end::Indicator label-->
-											<!--begin::Indicator progress-->
-											<span class="indicator-progress">Please wait... 
-											<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-											<!--end::Indicator progress-->
+									<div class="d-grid mb-10" style="margin-top: 2rem; margin-bottom: 2rem; display: flex; justify-content: center;">
+										<button type="button" class="button type--B" id="kt_sign_up_submit" style="border: none; background: none; cursor: pointer; width: 240px;">
+											<div class="button__line"></div>
+											<div class="button__line"></div>
+											<span class="button__text">SIGN UP</span>
+											<div class="button__drow1"></div>
+											<div class="button__drow2"></div>
 										</button>
 									</div>
 									<!--end::Submit button-->
 									<!--begin::Sign up-->
-									<div class="text-gray-500 text-center fw-semibold fs-6">Already have an Account? 
+									<div class="text-gray-500 text-center fw-semibold fs-6" style="margin-top: 2rem;">Already have an Account? 
 									<a href="<?php echo base_url(); ?>" class="link-primary fw-semibold"><b>Log in</b></a></div>
 									<!--end::Sign up-->
 								</form>

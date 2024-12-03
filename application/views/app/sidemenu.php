@@ -17,7 +17,7 @@
         <div class="ms_nav_wrapper">
             <h4 class="nav_heading">Browse Music</h4>
             <ul>
-                <!-- <li>
+                <li>
                     <a href="<?= base_url('app')?>" title="Albums">
                         <span class="nav_icon">
                             <span class="icon icon_albums"></span>
@@ -26,7 +26,7 @@
                             albums
                         </span>
                     </a>
-                </li>  -->
+                </li> 
                 <li><a href="<?= base_url('allmusic');?>" title="Music">
 				<span class="nav_icon">
 					<span class="icon icon_music"></span>
@@ -70,10 +70,10 @@
                 <!-- AI to detect face for music -->
                 <li><a href="<?= base_url('aimusic'); ?>" title="AI Images">
                 <span class="nav_icon">
-                    <span class="icon icon_upload"></span>
+                    <span class="fas fa-users-viewfinder"></span>
                 </span>
                 <span class="nav_text">
-                    AI images
+                    Analyze Mood
                 </span>
                 </a>
                 </li>

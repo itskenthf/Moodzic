@@ -1,4 +1,50 @@
- <div class="ms_download_wrapper common_pages_space">
+ <style>
+/* Background image */
+.bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url('<?php echo base_url(); ?>/assets/media/auth/purple.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Favorites content container */
+.fav-container {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+
+/* Song list blur background */
+.album_list_wrapper {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+#fix-id-ul-song {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+  transition: background 0.3s ease;
+}
+
+#fix-id-ul-song:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+</style>
+
+<div class="bg-container"></div>
+<div class="ms_download_wrapper common_pages_space fav-container">
     <div class="ms_download_inner">
         <div class="album_inner_list">
             <div class="slider_heading_wrap marger_bottom30">
@@ -16,7 +62,7 @@
                 </ul>
                 <? if($favs){ ?>
                 <? $no = 1; foreach ($favs as $key) { ?>
-                <ul>
+                <ul id="fix-id-ul-song">
                     <li>
                         <a href="javascript:;" class="dwld_sn">
                         <span class="play_no"><?= $no++ ?></span>
