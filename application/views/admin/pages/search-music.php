@@ -1,4 +1,57 @@
- <div class="ms_download_wrapper common_pages_space">
+ <style>
+/* Background image */
+.bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url('<?php echo base_url(); ?>/assets/media/auth/purple.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Music list wrapper */
+.album_list_wrapper {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Music item styling */
+[id^="all-music-ul-"] {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+  transition: background 0.3s ease;
+}
+
+[id^="all-music-ul-"]:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Action links styling */
+.action-link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.action-link:hover {
+  color: #fb324f;
+}
+
+</style>
+
+<div class="bg-container"></div>
+
+<div class="ms_download_wrapper common_pages_space">
     <div class="ms_download_inner">
         <div class="album_inner_list">
             <div class="slider_heading_wrap marger_bottom30">
@@ -109,47 +162,42 @@
 
                 ?>
                 <ul id="all-music-ul-<?=$key['id']?>" id="fix-id-ul-song">
-                    <li>
-                        <a href="javascript:;" class="dwld_sn btn-play-the-music" data-init="audiomod-<?=$key['id']?>" data-musicid="<?=$key['id']?>">
+                    <li style="width:1px;">
+                        <a href="javascript:;" class="dwld_sn btn-play-the-music action-link" data-init="audiomod-<?=$key['id']?>" data-musicid="<?=$key['id']?>">
                         <?/*<audio id="audioPlayer" src="<?=$source_music?>" preload="auto"></audio> */?>
                         <audio id="audiomod-<?=$key['id']?>" src="<?=$source_music?>" preload="auto"></audio>
-                        <span class="play_no"><?= $no++ ?></span>
+                        <span class="play_nox"><?= $no++ ?></span>
                         <span class="play_hover">
-                            <i id="musicIcon-<?=$key['id']?>" class="fas fa-play"></i>
-                            <?/*<img src="<?= base_url();?>assetsmoods/images/svg/play_songlist.svg" alt="Play" class="img-fluid list_play">
-                            <img src="<?= base_url();?>assetsmoods/images/svg/sound_bars.svg" alt="bar" class="img-fluid list_play_bar"> */?>
+                            <img src="<?= base_url();?>assetsmoods/images/svg/play_songlist.svg" alt="Play" class="img-fluid list_play" width="30px;">
+                            <img src="<?= base_url();?>assetsmoods/images/svg/sound_bars.svg" alt="bar" class="img-fluid list_play_bar" width="30px;">
                         </span>
                         </a>
                     </li>
                     <li>
                         <input type="hidden" id="music-name-<?=$key['id']?>" value="<?=$key['name']?>">
                         <input type="hidden" id="artists-name-<?=$key['id']?>" value="<?=$key['singer']?>">
-                        <a href="javascript:;">
+                        <a href="javascript:;" class="action-link">
                         <img src="<?= base_url();?>assetsmoods/images/loader.gif" alt="bar" class="img-fluid fix-bar-class" width="30px;" style="display: none;" id="bar-play-<?=$key['id']?>">&nbsp;
                         <?= $key['name']?>
                         </a>
                     </li>
-                    <li><a href="javascript:;"><?=$key['singer']?></a></li>
-                    <li class="text-center"><a href="javascript:;"><?=musicDuration($key['duration']);?></a></li>
+                    <li><a href="javascript:;" class="action-link"><?=$key['singer']?></a></li>
+                    <li class="text-center"><a href="javascript:;" class="action-link"><?=musicDuration($key['duration']);?></a></li>
                     
                     <li class="list_more">
-                        <a href="javascript:;"><?=$owner['fullname']?></a>                        
+                        <a href="javascript:;" class="action-link"><?=$owner['fullname']?></a>                        
                     </li>
                     <li class="text-center">
-                        <a href="javascript:;" onclick="deleteMusic('<?=$key['id']?>')">
+                        <a href="javascript:;" onclick="deleteMusic('<?=$key['id']?>')" class="action-link">
                         <span class="list_close">
                             <svg 
                             xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                            width="8px" height="8px">
-                            <path fill-rule="evenodd"  fill="rgb(124 142 165)"
-                            d="M4.945,3.993 L7.802,1.135 C8.065,0.872 8.065,0.446 7.802,0.183 C7.539,-0.080 7.113,-0.080 6.850,0.183 L3.993,3.040 L1.135,0.183 C0.872,-0.080 0.446,-0.080 0.183,0.183 C-0.080,0.446 -0.080,0.872 0.183,1.135 L3.040,3.993 L0.183,6.850 C-0.080,7.113 -0.080,7.539 0.183,7.802 C0.446,8.065 0.872,8.065 1.135,7.802 L3.993,4.945 L6.850,7.802 C7.113,8.065 7.539,8.065 7.802,7.802 C8.065,7.539 8.065,7.113 7.802,6.850 L4.945,3.993 Z"/>
-                            </svg>
-                        </span></a>
+                            xmlns:xlink="http://www.w3.org/1999/xlink" width="8px" height="8px"><path fill-rule="evenodd" fill="rgb(124, 142, 165)" d="M4.945,3.993 L7.802,1.135 C8.065,0.872 8.065,0.446 7.802,0.183 C7.539,-0.080 7.113,-0.080 6.850,0.183 L3.993,3.040 L1.135,0.183 C0.872,-0.080 0.446,-0.080 0.183,0.183 C-0.080,0.446 -0.080,0.872 0.183,1.135 L3.040,3.993 L0.183,6.850 C-0.080,7.113 -0.080,7.539 0.183,7.802 C0.446,8.065 0.872,8.065 1.135,7.802 L3.993,4.945 L6.850,7.802 C7.113,8.065 7.539,8.065 7.802,7.802 C8.065,7.539 8.065,7.113 7.802,6.850 L4.945,3.993 Z"/></svg>
+                        </span>
+                        </a>
                     </li>
                     <li>
-                        <!-- <i class="fa fa-info-circle fa-xl" aria-hidden="true"></i> -->
-                        <a href="<?=base_url('admin/userAccount/'.$key['user_id'])?>">Owner Details</a>
+                        <a href="<?=base_url('admin/userAccount/'.$key['user_id'])?>" class="action-link">Owner Details</a>
                     </li>
                 </ul>
                 <? } ?>

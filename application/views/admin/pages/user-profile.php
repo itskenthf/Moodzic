@@ -7,13 +7,8 @@
                 </div>
             </div>
 
-           <!--  <form action="upload.php" method="POST" enctype="multipart/form-data">
-                <label for="musicFile">Choose a music file (MP3 only):</label>
-                <input type="file" name="musicFile" id="musicFile" accept=".mp3" required>
-            </form> -->
-
-            <div class="add-div">
-                <form id="update-form-data">
+            <div class="add-div ms_profile_box">
+                <form id="update-form-data" class="ms_pro_form">
                 <input type="hidden" name="id" value="<?=$profile['id']?>">
                 <label for="fname"><font color='white'>Name </font></label>
                 <input type="text" name="fullname" class="add-input" placeholder="Name.." value="<?=$profile['fullname']?>" required>
@@ -34,7 +29,68 @@
     </div>
 </div>
 
- <div class="ms_download_wrapper common_pages_space">
+<style>
+/* Background image */
+.bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image: url('<?php echo base_url(); ?>/assets/media/auth/purple.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Profile section styling */
+.ms_profile_box {
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* Music list wrapper */
+.album_list_wrapper {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+/* Music item styling */
+[id^="all-music-ul-"] {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+  transition: background 0.3s ease;
+}
+
+[id^="all-music-ul-"]:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Action links styling */
+.action-link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.action-link:hover {
+  color: #fb324f;
+}
+</style>
+
+<div class="bg-container"></div>
+
+<div class="ms_download_wrapper common_pages_space">
     <div class="ms_download_inner">
         <div class="album_inner_list">
             <div class="slider_heading_wrap marger_bottom30">
@@ -59,7 +115,7 @@
 
                 <ul id="all-music-ul-<?=$key['id']?>" id="fix-id-ul-song">
                     <li style="width:1px;">
-                        <a href="javascript:;" class="dwld_sn btn-play-the-music" data-init="audiomod-<?=$key['id']?>" data-musicid="<?=$key['id']?>">
+                        <a href="javascript:;" class="dwld_sn btn-play-the-music action-link" data-init="audiomod-<?=$key['id']?>" data-musicid="<?=$key['id']?>">
                         <?/*<audio id="audioPlayer" src="<?=$source_music?>" preload="auto"></audio> */?>
                         <audio id="audiomod-<?=$key['id']?>" src="<?=$source_music?>" preload="auto"></audio>
                         <span class="play_nox"><?= $no++ ?></span>
@@ -73,19 +129,19 @@
                     <li>
                         <input type="hidden" id="music-name-<?=$key['id']?>" value="<?=$key['name']?>">
                         <input type="hidden" id="artists-name-<?=$key['id']?>" value="<?=$key['singer']?>">
-                        <a href="javascript:;">
+                        <a href="javascript:;" class="action-link">
                         <img src="<?= base_url();?>assetsmoods/images/loader.gif" alt="bar" class="img-fluid fix-bar-class" width="30px;" style="display: none;" id="bar-play-<?=$key['id']?>">&nbsp;
                         <?= $key['name']?>
                         </a>
                     </li>
-                    <li><a href="javascript:;"><?=$key['singer']?></a></li>
-                    <li class="text-center"><a href="javascript:;"><?=musicDuration($key['duration']);?></a></li>
+                    <li><a href="javascript:;" class="action-link"><?=$key['singer']?></a></li>
+                    <li class="text-center"><a href="javascript:;" class="action-link"><?=musicDuration($key['duration']);?></a></li>
                     
                     <li class="list_more">
-                        <a href="javascript:;"><?=$key['original_filename']?></a>              
+                        <a href="javascript:;" class="action-link"><?=$key['original_filename']?></a>              
                     </li>
                     <li class="text-center">
-                        <a href="javascript:;" onclick="deleteMusic('<?=$key['id']?>')">
+                        <a href="javascript:;" onclick="deleteMusic('<?=$key['id']?>')" class="action-link">
                         <span class="list_close">
                             <svg 
                             xmlns="http://www.w3.org/2000/svg"

@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 import time
 
+
 # Database configuration
 db_config = {
     'host': 'localhost',
@@ -55,7 +56,7 @@ def recommend_songs(mood, num_songs=5):
         connection = get_db_connection()
         if connection is None:
             return []
-        
+
         cursor = connection.cursor(dictionary=True)
         # Map mood to category (1: Happy, 2: Sad, 3: Energetic, 4: Calm)
         mood_to_category = {
@@ -64,30 +65,30 @@ def recommend_songs(mood, num_songs=5):
             'Energetic': 3,
             'Calm': 4
         }
-        
+
         category = mood_to_category.get(mood, 1)  # Default to Happy if mood not found
-        
+
         query = """
-            SELECT name, singer as artists, 
+            SELECT name, singer as artists,
                    CONCAT('http://localhost/moodzic/uploads/musics/', filename) as file_url
-            FROM musics 
+            FROM musics
             WHERE category = %s
-            ORDER BY RAND() 
+            ORDER BY RAND()
             LIMIT %s
         """
         cursor.execute(query, (category, num_songs))
         songs = cursor.fetchall()
-        
+
         cursor.close()
         connection.close()
-        
+
         if not songs:
             return [{'name': 'No songs available', 'artists': ''}]
-        
+
         # Print the whole data
         print(songs)
         return songs
-        
+
     except Error as e:
         print(f"Error querying database: {e}")
         return [{'name': 'Error fetching songs', 'artists': ''}]
@@ -156,16 +157,16 @@ def iframe_view():
 
 def generate_frames():
     global video_capture, current_mood
-    
+
     # Release existing capture if any
     if video_capture:
         video_capture.release()
-    
+
     video_capture = cv2.VideoCapture(0)
     # Set camera resolution to match index.html view
     video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-    
+
     emotion_count = {}
     frame_skip = 5
     frame_count = 0
@@ -175,7 +176,7 @@ def generate_frames():
         while True:
             if video_capture is None:  # Check if detection was stopped
                 break
-                
+
             ret, frame = video_capture.read()
             if not ret:
                 break
@@ -191,7 +192,7 @@ def generate_frames():
 
             frame_count += 1
             # Add mood text with better positioning
-            cv2.putText(frame, f"Detected Mood: {current_mood}", (20, 50), 
+            cv2.putText(frame, f"Detected Mood: {current_mood}", (20, 50),
                         cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0), 2)
 
             ret, buffer = cv2.imencode('.jpg', frame)

@@ -79,12 +79,12 @@
                                     <span class="common_drop_icon drop_playlist"></span>Add to My Playlist
                                 </a>
                             </li>
-                        </ul>                                   
+                        </ul>
                     </li>
                     <li class="text-center">
                         <a href="javascript:;" onclick="deleteMusic('<?=$key['id']?>')">
                         <span class="list_close">
-                            <svg 
+                            <svg
                             xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink"
                             width="8px" height="8px">
@@ -100,6 +100,6 @@
                 <? } ?>
             </div>
         </div>
-        
+
     </div>
 </div>

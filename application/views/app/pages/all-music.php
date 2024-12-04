@@ -71,7 +71,7 @@
                             <span class="play_no">01</span>
                             <span class="play_hover">
                                 <img src="assets/images/svg/play_songlist.svg" alt="Play" class="img-fluid list_play">
-                                <img src="assets/images/svg/sound_bars.svg" alt="bar" class="img-fluid list_play_bar">  
+                                <img src="assets/images/svg/sound_bars.svg" alt="bar" class="img-fluid list_play_bar">
                             </span>
                             </a>
                         </li>
@@ -112,11 +112,11 @@
                                         <span class="common_drop_icon drop_share"></span>Share
                                     </a>
                                 </li>
-                            </ul>                                   
+                            </ul>
                         </li>
                         <li class="text-center"><a href="javascript:;">
                             <span class="list_close">
-                                <svg 
+                                <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink"
                                 width="8px" height="8px">
@@ -210,12 +210,12 @@
                                         <span class="common_drop_icon drop_playlist"></span>Add to My Playlist
                                     </a>
                                 </li>
-                            </ul>                                   
+                            </ul>
                         </li>
                         <li class="text-center">
                             <a href="javascript:;" onclick="deleteMusic('<?=$key['id']?>')">
                             <span class="list_close">
-                                <svg 
+                                <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink"
                                 width="8px" height="8px">
@@ -229,7 +229,7 @@
                     <? } ?>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </div>
