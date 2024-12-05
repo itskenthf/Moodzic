@@ -51,7 +51,6 @@ class App extends CI_Controller {
 	}
 
 	public function addToPlaylist() {
-		// Check if user is logged in
 		if (!$this->user_id) {
 			echo json_encode([
 				'status' => 'error',
@@ -60,13 +59,27 @@ class App extends CI_Controller {
 			return;
 		}
 
-		// Get song details from POST data
 		$song_name = $this->input->post('song_name');
 		$artists = $this->input->post('artists');
-		$file_url = $this->input->post('file_url');
+		$filename = $this->input->post('filename');
+		$path = './uploads/musics'; // Fixed path prefix
+		$original_filename = $this->input->post('original_filename');
 
-		// Validate input
-		if (!$song_name || !$file_url) {
+		// Check if song already exists for this user
+		$exists = $this->db->where([
+			'user_id' => $this->user_id,
+			'filename' => $filename
+		])->get('musics')->num_rows() > 0;
+
+		if ($exists) {
+			echo json_encode([
+				'status' => 'exists',
+				'message' => 'This song is already in your playlist'
+			]);
+			return;
+		}
+
+		if (!$song_name || !$filename) {
 			echo json_encode([
 				'status' => 'error',
 				'message' => 'Invalid song details'
@@ -74,18 +87,19 @@ class App extends CI_Controller {
 			return;
 		}
 
-		// Prepare data for insertion
 		$data = array(
 			'user_id' => $this->user_id,
 			'name' => $song_name,
 			'singer' => $artists,
-			'filename' => basename($file_url),
-			'path' => dirname($file_url),
-			'category' => '4', // Category 4 is for "My Playlist"
-			'created_at' => date('Y-m-d H:i:s')
+			'filename' => $filename,
+			'original_filename' => $original_filename,
+			'path' => $path,
+			'category' => 4,
+			'create_dt' => date('Y-m-d H:i:s'),
+			'duration' => '00:02:50', // Fixed duration format
+			'fav' => 0
 		);
 
-		// Insert into playlist table
 		try {
 			$this->db->insert('musics', $data);
 			echo json_encode([

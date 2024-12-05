@@ -648,29 +648,29 @@
                     });
 
                     function addToPlaylist(button, songName, artists, fileUrl) {
-                        // Get the filename and path from the URL
-                        const url = new URL(fileUrl);
-                        const fullPath = url.pathname;
-
+                        const filename = fileUrl.split('/').pop();
+                        
                         fetch('<?php echo base_url('app/addToPlaylist'); ?>', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded',
                             },
-                            body: `song_name=${encodeURIComponent(songName)}&artists=${encodeURIComponent(artists)}&file_url=${encodeURIComponent(fullPath)}`
+                            body: `song_name=${encodeURIComponent(songName)}&artists=${encodeURIComponent(artists)}&filename=${encodeURIComponent(filename)}&original_filename=${encodeURIComponent(filename)}`
                         })
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === 'success') {
                                 button.classList.add('added');
                                 button.innerHTML = '<i class="fa fa-check"></i>';
-                                // Optional: Show a success message
                                 alert('Song added to your playlist!');
-
-                                // Optionally refresh the playlist tab
+                                
                                 if (typeof loadMyPlaylist === 'function') {
                                     loadMyPlaylist();
                                 }
+                            } else if (data.status === 'exists') {
+                                button.style.backgroundColor = '#fb324f';
+                                button.innerHTML = '<i class="fa fa-check"></i>';
+                                alert(data.message);
                             } else {
                                 alert(data.message || 'Failed to add song to playlist');
                             }
