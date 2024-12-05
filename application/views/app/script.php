@@ -20,7 +20,7 @@
 		<?php
 		  if ($this->session->flashdata('success_upload_music')) {
 		 		?>
-		 		
+
 	  		  	var msg = '<?php echo $this->session->flashdata('success_upload_music'); ?>';
 
 	          	iziToast.success({
@@ -29,7 +29,7 @@
 	                transitionIn: 'bounceInLeft',
 	                position: 'topRight',
 	            });
-			  	
+
 		    <?php
 		  }
 		  ?>
@@ -86,13 +86,13 @@
             } else {
                 // If playing, pause the audio
                 audio.pause();
-                currentAudio = null; 
+                currentAudio = null;
 
                 // Change the icon to 'play' when the music is paused
                 icon.classList.remove("fa-pause");
                 icon.classList.add("fa-play");
                 $("#bar-play-"+music_id).hide();
-                
+
             }
 
             iziToast.show({
@@ -195,7 +195,7 @@
 			    progressBarColor: 'rgb(0, 255, 184)',
 			    buttons: [
 			        ['<button>Yes</button>', function (instance, toast) {
-			            
+
 
 			        	$.ajax({
 			                url: base_url + 'allmusic/deleteMusic', // The route defined in routes.php
@@ -210,7 +210,7 @@
 		                                    console.info('Toast closed: ' + closedBy);
 		                                }
 		                            }, toast);
-		                            
+
 		                            iziToast.success({
 		                                title: response.msg,
 		                                position: 'topCenter',
@@ -267,7 +267,7 @@
 			    progressBarColor: 'rgb(0, 255, 184)',
 			    buttons: [
 			        ['<button>Yes</button>', function (instance, toast) {
-			            
+
 
 			        	$.ajax({
 			                url: base_url + 'Favourite/removeFromFav', // The route defined in routes.php
@@ -282,7 +282,7 @@
 		                                    console.info('Toast closed: ' + closedBy);
 		                                }
 		                            }, toast);
-		                            
+
 		                            iziToast.success({
 		                                title: response.msg,
 		                                position: 'topCenter',
@@ -327,5 +327,109 @@
 			    }
 			});
 	    }
-    
+
+</script>
+
+<!-- Add this new script section for calm playlist functionality -->
+<script>
+$(document).ready(function() {
+    let currentAudioCalm = null;
+
+    $(".btn-play-the-music-calm").on("click", function() {
+        let music_id_calm = $(this).data("musicidcalm");
+        let audiocalm = document.getElementById($(this).data("init"));
+        let icon_calm = document.getElementById("musicIcon-calm-"+music_id_calm);
+
+        $(".fix-bar-class-calm").hide();
+        $(".default-calm").show();
+
+        // If there's already a currently playing audio, pause it
+        if (currentAudioCalm && currentAudioCalm !== audiocalm) {
+            currentAudioCalm.pause();
+            $("#bar-play-calm-"+music_id_calm).show();
+        }
+
+        // Check if the audio is already playing
+        if (audiocalm.paused) {
+            // If paused, play the audio
+            audiocalm.play();
+            currentAudioCalm = audiocalm;
+
+            // Change the icon to 'pause' when the music is playing
+            icon_calm.classList.remove("fa-play-happy");
+            icon_calm.classList.add("fa-pause-happy");
+            $("#bar-play-calm-"+music_id_calm).show();
+            $("#bar-default-calm-"+music_id_calm).hide();
+
+        } else {
+            // If playing, pause the audio
+            audiocalm.pause();
+            currentAudioCalm = null;
+
+            // Change the icon back to 'play' when the music is paused
+            icon_calm.classList.remove("fa-pause-happy");
+            icon_calm.classList.add("fa-play-happy");
+            $("#bar-play-calm-"+music_id_calm).hide();
+            $("#bar-default-calm-"+music_id_calm).show();
+        }
+
+        // Add ended event listener
+        audiocalm.addEventListener('ended', function() {
+            icon_calm.classList.remove("fa-pause-happy");
+            icon_calm.classList.add("fa-play-happy");
+            $("#bar-play-calm-"+music_id_calm).hide();
+            $("#bar-default-calm-"+music_id_calm).show();
+            currentAudioCalm = null;
+        });
+    });
+});
+</script>
+
+<!-- Add this new script section for favorites playlist functionality -->
+<script>
+$(document).ready(function() {
+    let currentAudioFav = null;
+
+    $(".btn-play-the-music-fav").on("click", function() {
+        let music_id = $(this).data("musicid");
+        let audio = document.getElementById($(this).data("init"));
+        let icon = document.getElementById("musicIcon-fav-"+music_id);
+
+        // If there's already a currently playing audio, pause it
+        if (currentAudioFav && currentAudioFav !== audio) {
+            currentAudioFav.pause();
+            // Reset previous song's icon
+            let prevId = currentAudioFav.id.split('-')[2];
+            let prevIcon = document.getElementById("musicIcon-fav-"+prevId);
+            prevIcon.classList.remove("fa-pause");
+            prevIcon.classList.add("fa-play");
+        }
+
+        // Check if the audio is already playing
+        if (audio.paused) {
+            // If paused, play the audio
+            audio.play();
+            currentAudioFav = audio;
+
+            // Change icon to pause
+            icon.classList.remove("fa-play");
+            icon.classList.add("fa-pause");
+        } else {
+            // If playing, pause the audio
+            audio.pause();
+            currentAudioFav = null;
+
+            // Change icon to play
+            icon.classList.remove("fa-pause");
+            icon.classList.add("fa-play");
+        }
+
+        // Add ended event listener
+        audio.addEventListener('ended', function() {
+            icon.classList.remove("fa-pause");
+            icon.classList.add("fa-play");
+            currentAudioFav = null;
+        });
+    });
+});
 </script>

@@ -64,21 +64,21 @@
                 <? $no = 1; foreach ($favs as $key) { ?>
                 <ul id="fix-id-ul-song">
                     <li>
-                        <a href="javascript:;" class="dwld_sn">
+                        <a href="javascript:;" class="dwld_sn btn-play-the-music-fav" data-init="audiomod-fav-<?=$key['id']?>" data-musicid="<?=$key['id']?>">
                         <span class="play_no"><?= $no++ ?></span>
+                        <audio id="audiomod-fav-<?=$key['id']?>" src="<?= base_url() . $key['path'] . "/" . $key['filename']?>" preload="auto"></audio>
                         <span class="play_hover">
-                            <img src="<?= base_url();?>assetsmoods/images/svg/play_songlist.svg" alt="Play" class="img-fluid list_play">
-                            <img src="<?= base_url();?>assetsmoods/images/svg/sound_bars.svg" alt="bar" class="img-fluid list_play_bar">  
+                            <i id="musicIcon-fav-<?=$key['id']?>" class="fas fa-play"></i>
                         </span>
                         </a>
                     </li>
                     <li><a href="javascript:;"><?= $key['name']?></a></li>
                     <li><a href="javascript:;"><?=$key['singer']?></a></li>
                     <li class="text-center"><a href="javascript:;"><?=musicDuration($key['duration']);?></a></li>
-                    
+
                     <li class="text-center"><a href="javascript:;" onclick="removeFromFav('<?=$key['id']?>');">
                         <span class="list_close">
-                            <svg 
+                            <svg
                             xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink"
                             width="8px" height="8px">
@@ -92,6 +92,6 @@
                 <? } ?>
             </div>
         </div>
-        
+
     </div>
 </div>

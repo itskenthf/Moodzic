@@ -435,6 +435,37 @@
                         transform: translateY(-400%);
                     }
                 }
+
+                .song-controls {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                }
+
+                .add-btn {
+                    background: none;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    padding: 10px;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.3s ease;
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+
+                .add-btn:hover {
+                    background-color: rgba(255, 255, 255, 0.3);
+                    transform: scale(1.1);
+                }
+
+                .add-btn.added {
+                    background-color: #4CAF50;
+                }
             </style>
             <div class="bg-container"></div>
             <div class="album_list_wrapper">
@@ -577,9 +608,14 @@
                                                         <div class="song-name">${song.name}</div>
                                                         <div class="song-artist">${song.artists}</div>
                                                     </div>
-                                                    <button class="play-btn" onclick="togglePlay(this, '${song.file_url}')">
-                                                        <i class="fa fa-play"></i>
-                                                    </button>
+                                                    <div class="song-controls">
+                                                        <button class="add-btn" onclick="addToPlaylist(this, '${song.name}', '${song.artists}', '${song.file_url}')">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                        <button class="play-btn" onclick="togglePlay(this, '${song.file_url}')">
+                                                            <i class="fa fa-play"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             `;
                                         });
@@ -610,6 +646,53 @@
                             }
                         }
                     });
+
+                    function addToPlaylist(button, songName, artists, fileUrl) {
+                        // Get the filename and path from the URL
+                        const url = new URL(fileUrl);
+                        const fullPath = url.pathname;
+
+                        fetch('<?php echo base_url('app/addToPlaylist'); ?>', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `song_name=${encodeURIComponent(songName)}&artists=${encodeURIComponent(artists)}&file_url=${encodeURIComponent(fullPath)}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                button.classList.add('added');
+                                button.innerHTML = '<i class="fa fa-check"></i>';
+                                // Optional: Show a success message
+                                alert('Song added to your playlist!');
+
+                                // Optionally refresh the playlist tab
+                                if (typeof loadMyPlaylist === 'function') {
+                                    loadMyPlaylist();
+                                }
+                            } else {
+                                alert(data.message || 'Failed to add song to playlist');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Failed to add song to playlist');
+                        });
+                    }
+
+                    function loadMyPlaylist() {
+                        fetch('<?php echo base_url('app/getMyPlaylist'); ?>')
+                            .then(response => response.json())
+                            .then(data => {
+                                const playlistContainer = document.querySelector('#new-release .ms_songlist');
+                                if (playlistContainer && data.songs) {
+                                    // Update the playlist HTML
+                                    updatePlaylistHTML(playlistContainer, data.songs);
+                                }
+                            })
+                            .catch(error => console.error('Error loading playlist:', error));
+                    }
                 </script>
             </div>
         </div>

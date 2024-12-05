@@ -58,12 +58,12 @@ def recommend_songs(mood, num_songs=5):
             return []
 
         cursor = connection.cursor(dictionary=True)
-        # Map mood to category (1: Happy, 2: Sad, 3: Energetic, 4: Calm)
+        # Map mood to category (1: Happy, 2: Sad, 3: Calm, 4: Energetic)
         mood_to_category = {
             'Sad': 1,
             'Happy': 2,
-            'Energetic': 3,
-            'Calm': 4
+            'Calm': 3,
+            'Energetic': 4
         }
 
         category = mood_to_category.get(mood, 1)  # Default to Happy if mood not found

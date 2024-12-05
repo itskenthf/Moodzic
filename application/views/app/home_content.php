@@ -18,7 +18,6 @@
                                     <div class="wave"></div>
                                     <div class="wave"></div>
                                     <div class="new-feature-badge">
-                                        <span class="pulse"></span>
                                         <span class="badge-text">NEW!</span>
                                     </div>
                                     <div class="card-headline">
@@ -543,6 +542,8 @@
     gap: 30px;
     padding-left: 15px;
     margin-top: 30px;
+    align-items: flex-end;  /* Change from center to flex-end to align from bottom */
+    height: 500px;  /* Set fixed height to match cards */
 }
 
 .facial-card {
@@ -732,27 +733,6 @@
     animation: float 3s ease-in-out infinite;
 }
 
-.pulse {
-    width: 8px;
-    height: 8px;
-    background-color: #F4F6FF;
-    border-radius: 50%;
-    position: relative;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(255, 51, 102, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(255, 51, 102, 0);
-    }
-}
-
 @keyframes float {
     0%, 100% {
         transform: translateY(0);
@@ -784,7 +764,9 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-top: -50px;  /* Match vinyl card margin */
+    height: 400px;  /* Match height of other cards */
+    justify-content: flex-end;  /* Align items to bottom */
+    padding-bottom: 5px;
 }
 
 .stat-card {

@@ -80,11 +80,12 @@
                       <option value="">Choose category</option>
                       <option value="1">Sad</option>
                       <option value="2">Happy</option>
+                      <option value="3">Calm</option>
                     </select>
 
                     <input type="file" id="musicFile" name="musicFile" class="add-input" accept=".mp3" required>
 
-                  
+
                     <div class="ms_view_more text-center">
                         <!-- <button class="ms_btn" type="submit">Add</a> -->
                         <button class="button button1" style="background-color: #555555;"><font color='white'>Add Music</font></button>
@@ -92,10 +93,10 @@
 
                   </form>
                 </div>
-                            
+
             </div>
-            
-            
+
+
         </div>
     </div>
 </div>
