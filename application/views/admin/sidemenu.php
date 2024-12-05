@@ -13,9 +13,9 @@
             <div class="ms_logo_mini">
                 <a href="<?= base_url('assetsmoods/images/mood.png')?>" alt="mini_logo" class="img-fluid"/></a>
             </div>
-        </div>                
-        <div class="ms_nav_wrapper"> 
-            <h4 class="nav_heading">Users</h4>                   
+        </div>
+        <div class="ms_nav_wrapper">
+            <h4 class="nav_heading">Users</h4>
             <ul>
                 <!-- <li>
                     <a href="<?= base_url('app')?>" title="Albums">
@@ -26,30 +26,30 @@
                             albums
                         </span>
                     </a>
-                </li>  -->           
+                </li>  -->
                 <li><a href="<?= base_url('admin/allUsers');?>" title="Music">
 				<span class="nav_icon">
-					<span class="icon icon_users"></span>
+					<i class="fa-solid fa-users"></i>
 				</span>
 				<span class="nav_text">
 					All users
 				</span>
 				</a>
                 </li>
-                
+
             </ul>
             <h4 class="nav_heading">Music</h4>
             <ul class="nav_downloads">
-                
-                
+
+
                 <li><a href="<?= base_url('admin/allMusics')?>" title="Favourites">
-				<span class="nav_icon">
-					<span class="icon icon_albums"></span>
-				</span>
-				<span class="nav_text">
-					All musics
-				</span>
-				</a>
+                <span class="nav_icon">
+                    <i class="fa-solid fa-list"></i>
+                </span>
+                <span class="nav_text">
+                    All musics
+                </span>
+                </a>
                 </li>
 
                 <?/*
@@ -63,14 +63,14 @@
                 </a>
                 </li>
                 */?>
-            
+
             </ul>
 
             <?/*
             <h4 class="nav_heading">New</h4>
             <ul class="nav_downloads">
-                
-                
+
+
                 <li><a href="<?= base_url('newmusics'); ?>" title="Favourites">
                 <span class="nav_icon">
                     <span class="icon icon_upload"></span>
@@ -80,7 +80,7 @@
                 </span>
                 </a>
                 </li>
-            
+
             </ul>
 
             */?>

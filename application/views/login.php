@@ -8,7 +8,7 @@
 		<div class="d-flex flex-column flex-root" id="kt_app_root">
 			<!--begin::Page bg image-->
 			<style>
-				body { background-image: url('<?php echo base_url(); ?>/assets/media/auth/home.jpg'); } [data-bs-theme="dark"] 
+				body { background-image: url('<?php echo base_url(); ?>/assets/media/auth/home.jpg'); } [data-bs-theme="dark"]
 				body { background-image: url('<?php echo base_url(); ?>/assets/media/auth/bg5-dark.jpg'); }
 			</style>
 			<!--end::Page bg image-->
@@ -39,8 +39,11 @@
 							background: rgba(0, 0, 0, 0.7);
 							backdrop-filter: blur(10px);
 							border-radius: 10px;
-							padding: 20px;
+							padding: 30px;
 							box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+							width: 100%;
+							max-width: 500px;
+							margin: 0 auto;
 						}
 
 						.login-container input {
@@ -56,14 +59,59 @@
 						.login-container label {
 							color: white !important;
 						}
+						.card {
+							margin: 0 auto;
+						}
+
+						/* Center the main container vertically and horizontally */
+						.d-flex.flex-column.flex-center.flex-column-fluid {
+							min-height: 100vh;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+						}
+
+						/* Remove extra padding/margins that might affect centering */
+						.d-flex.flex-column.flex-center.text-center.p-10 {
+							padding: 0 !important;
+						}
+
+						.card {
+							margin: 0 auto;
+						}
+
+						.card-body {
+							padding: 0 !important;
+						}
+
+						/* Update login container */
+						.login-container {
+							background: rgba(0, 0, 0, 0.7);
+							backdrop-filter: blur(10px);
+							border-radius: 10px;
+							padding: 30px;
+							box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+							width: 100%;
+							max-width: 500px;
+							margin: 0 auto;
+						}
+
+						/* Remove any top/bottom margins from wrapper */
+						.card.card-flush {
+							padding: 0 !important;
+						}
+
+						.login-container .link-primary {
+							color: #fb324f !important;
+						}
 					</style>
 					<div class="bg-container"></div>
 					<div class="card card-flush w-lg-500px py-16 border-0" style="background: transparent;">
 						<div class="card-body py-15 py-lg-0">
 							<div class="login-container">
 								<form class="form w-100" action="<?= base_url('login');?>" method="POST">
-									<div class="separator separator-content my-16">
-										<img alt="Logo" src="<?php echo base_url(); ?>/assets/media/auth/mood.png" width="190px;" />
+									<div class="separator separator-content my-16" style="margin-bottom: 6rem !important;">
+										<img alt="Logo" src="<?php echo base_url(); ?>/assets/media/music-wall/logo.png" width="190px;"/>
 									</div>
 									<!--end::Separator-->
 									<?
@@ -71,7 +119,7 @@
 							        if(!empty($info)){ ?>
 									<!--begin::Alert-->
 									<div class="alert alert-danger d-flex align-items-center p-5">
-									   
+
 									    <!--begin::Wrapper-->
 									    <div class="d-flex flex-column">
 									        <!--begin::Content-->
@@ -109,8 +157,8 @@
 									</div>
 									<!--end::Submit button-->
 									<!--begin::Sign up-->
-									<div class="text-gray-500 text-center fw-semibold fs-6">Don't have an account ? 
-									<a href="<?php echo base_url('signup'); ?>" class="link-primary fw-semibold"><b>Sign Up</b></a></div>
+									<div class="text-gray-500 text-center fw-semibold fs-6">Don't have an account ?
+									<a href="<?php echo base_url('signup'); ?>" class="link-primary fw-semibold" style="color: #fb324f !important;"><b>Sign Up</b></a></div>
 									<!--end::Sign up-->
 								</form>
 							</div>

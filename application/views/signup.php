@@ -8,7 +8,7 @@
 		<div class="d-flex flex-column flex-root" id="kt_app_root">
 			<!--begin::Page bg image-->
 			<style>
-				body { background-image: url('<?php echo base_url(); ?>/assets/media/auth/home.jpg'); } [data-bs-theme="dark"] 
+				body { background-image: url('<?php echo base_url(); ?>/assets/media/auth/purple.jpeg'); } [data-bs-theme="dark"]
 				body { background-image: url('<?php echo base_url(); ?>/assets/media/auth/bg5-dark.jpg'); }
 			</style>
 			<!--end::Page bg image-->
@@ -22,8 +22,8 @@
 							<div class="signup-container">
 								<form class="form w-100" novalidate="novalidate" id="kt_sign_up_form" data-kt-redirect-url="<?php echo base_url(); ?>" action="#">
 									<!--begin::Separator-->
-									<div class="separator separator-content my-16">
-										<img alt="Logo" src="<?php echo base_url(); ?>/assets/media/auth/mood.png" width="190px;" />
+									<div class="separator separator-content my-16" style="margin-bottom: 5rem !important;">
+										<img alt="Logo" src="<?php echo base_url(); ?>/assets/media/music-wall/logo.png" width="180px;"/>
 									</div>
 									<!--end::Separator-->
 									<!--begin::Input group=-->
@@ -56,7 +56,7 @@
 											</div>
 											<!--end::Input wrapper-->
 											<!--begin::Meter-->
-											<div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+											<div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight" style="display: none !important;">
 												<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
 												<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
 												<div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
@@ -65,11 +65,7 @@
 											<!--end::Meter-->
 										</div>
 										<!--end::Wrapper-->
-										<!--begin::Hint-->
-										<div class="text-white">Use 8 or more characters with a mix of letters, numbers & symbols.</div>
-										<!--end::Hint-->
 									</div>
-									<!--end::Input group=-->
 									<!--end::Input group=-->
 									<div class="fv-row mb-8">
 										<!--begin::Repeat Password-->
@@ -77,7 +73,7 @@
 										<!--end::Repeat Password-->
 									</div>
 									<!--end::Input group=-->
-									
+
 									<!--begin::Submit button-->
 									<div class="d-grid mb-10" style="margin-top: 2rem; margin-bottom: 2rem; display: flex; justify-content: center;">
 										<button type="button" class="button type--B" id="kt_sign_up_submit" style="border: none; background: none; cursor: pointer; width: 240px;">
@@ -90,8 +86,8 @@
 									</div>
 									<!--end::Submit button-->
 									<!--begin::Sign up-->
-									<div class="text-gray-500 text-center fw-semibold fs-6" style="margin-top: 2rem;">Already have an Account? 
-									<a href="<?php echo base_url(); ?>" class="link-primary fw-semibold"><b>Log in</b></a></div>
+									<div class="text-gray-500 text-center fw-semibold fs-6" style="margin-top: 2rem;">Already have an Account?
+									<a href="<?php echo base_url(); ?>" class="link-primary fw-semibold" style="color: #fb324f !important;"><b>Log in</b></a></div>
 									<!--end::Sign up-->
 								</form>
 							</div>
@@ -131,8 +127,11 @@
 			  background: rgba(0, 0, 0, 0.7);
 			  backdrop-filter: blur(10px);
 			  border-radius: 10px;
-			  padding: 15px;
+			  padding: 30px;
 			  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+			  width: 100%;
+			  max-width: 500px;
+			  /* margin: 1rem auto; */
 			}
 
 			.signup-container .separator {
@@ -140,7 +139,8 @@
 			}
 
 			.signup-container .fv-row {
-			  margin-bottom: 0.8rem !important;
+			  width: 100%;
+			  margin-bottom: 1.5rem !important;
 			}
 
 			.signup-container .d-grid {
@@ -160,6 +160,28 @@
 
 			.signup-container label {
 			  color: white !important;
+			}
+			.card {
+				margin-left: auto;
+			}
+
+			/* Add this new style for the login link */
+			.signup-container .link-primary {
+				color: #fb324f !important;
+			}
+
+			/* Add styles for form control width */
+			.signup-container .form-control {
+				width: 100%;
+				max-width: 100%;
+				padding: 0.775rem;
+				font-size: 1.1rem;
+				line-height: 1.5;
+			}
+
+			/* Ensure form takes full width */
+			.signup-container form {
+				width: 100%;
 			}
 		</style>
 		<div class="bg-container"></div>

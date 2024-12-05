@@ -6,41 +6,42 @@
         <div class="">
             <div class="">
                 <a href="<?= base_url('home')?>">
-                    <img src="<?= base_url('assetsmoods/images/mood.png')?>" alt="logo" class="img-fluid" width="200px"/>
+                    <img src="<?= base_url('assets/media/music-wall/logo.png')?>" alt="logo" class="img-fluid" width="190px"/>
                     <!-- <strong>MoodZic</strong> -->
                 </a>
             </div>
             <div class="ms_logo_mini">
-                <a href="<?= base_url('assetsmoods/images/mood.png')?>" alt="mini_logo" class="img-fluid"/></a>
+                <a href="<?= base_url('assets/media/music-wall/logo.png')?>" alt="mini_logo" class="img-fluid"/></a>
             </div>
         </div>
         <div class="ms_nav_wrapper">
-            <h4 class="nav_heading">Browse Music</h4>
+            <h4 class="nav_heading">Menu</h4>
             <ul>
                 <li><a href="<?= base_url('home');?>" title="Home">
                 <span class="nav_icon">
-                    <span class="icon icon_home"></span>
+                    <i class="fa-solid fa-fire"></i>
                 </span>
                 <span class="nav_text">
-                    home
+                    Explore
                 </span>
                 </a>
                 </li>
-                <li><a href="<?= base_url('allmusic');?>" title="Music">
-                <span class="nav_icon">
-                    <span class="icon icon_music"></span>
-                </span>
-                <span class="nav_text">
-                    All music
-                </span>
-                </a>
-                </li>
+
             </ul>
             <h4 class="nav_heading">Your Music</h4>
             <ul class="nav_downloads">
+                <li><a href="<?= base_url('allmusic');?>" title="Music">
+                    <span class="nav_icon">
+                        <i class="fa-solid fa-music"></i>
+                    </span>
+                    <span class="nav_text">
+                        Songs
+                    </span>
+                    </a>
+                </li>
                 <li><a href="<?= base_url('favourite')?>" title="Favourites">
                 <span class="nav_icon">
-                    <span class="icon icon_favourite"></span>
+                    <i class="fa-solid fa-heart"></i>
                 </span>
                 <span class="nav_text">
                     favourites
@@ -50,7 +51,7 @@
                 <li>
                     <a href="<?= base_url('app')?>" title="Albums">
                         <span class="nav_icon">
-                            <span class="icon icon_albums"></span>
+                            <i class="fa-solid fa-compact-disc"></i>
                         </span>
                         <span class="nav_text">
                             albums
@@ -59,22 +60,11 @@
                 </li>
             </ul>
 
-            <h4 class="nav_heading">New</h4>
+            <h4 class="nav_heading">Features</h4>
             <ul class="nav_downloads">
-
-                <li><a href="<?= base_url('newmusics'); ?>" title="Favourites">
+            <li><a href="<?= base_url('aimusic'); ?>" title="AI Images">
                 <span class="nav_icon">
-                    <span class="icon icon_upload"></span>
-                </span>
-                <span class="nav_text">
-                    Add New Music
-                </span>
-                </a>
-                </li>
-
-                <li><a href="<?= base_url('aimusic'); ?>" title="AI Images">
-                <span class="nav_icon">
-                    <span class="fas fa-users-viewfinder"></span>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
                 </span>
                 <span class="nav_text">
                     Analyze Mood
@@ -82,6 +72,15 @@
                 </a>
                 </li>
 
+                <li><a href="<?= base_url('newmusics'); ?>" title="Favourites">
+                <span class="nav_icon">
+                    <i class="fa-solid fa-plus"></i>
+                </span>
+                <span class="nav_text">
+                    Add Music
+                </span>
+                </a>
+                </li>
             </ul>
         </div>
     </div>

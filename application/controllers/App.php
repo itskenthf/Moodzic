@@ -24,4 +24,29 @@ class App extends CI_Controller {
 
 		$this->load->view('app/home', $data);
 	}
+
+	public function getRandomSong() {
+		// Get a random song from the database
+		$this->db->order_by('RAND()');
+		$this->db->limit(1);
+		$query = $this->db->get('songs'); // Replace 'songs' with your actual table name
+
+		if ($query->num_rows() > 0) {
+			$song = $query->row();
+			echo json_encode([
+				'status' => 'success',
+				'song' => [
+					'id' => $song->id,
+					'title' => $song->title,
+					'file_path' => $song->file_path,
+					// Add other song details as needed
+				]
+			]);
+		} else {
+			echo json_encode([
+				'status' => 'error',
+				'message' => 'No songs found'
+			]);
+		}
+	}
 }
