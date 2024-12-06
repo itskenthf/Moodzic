@@ -38,9 +38,9 @@
                         <li>
                           <a class="" data-bs-toggle="pill" href="#calm-songs" role="tab" aria-controls="calm-songs" aria-selected="false">Calm Playlist</a>
                         </li>
-                        <li>
+                        <!-- <li>
                           <a class="" data-bs-toggle="pill" href="#new-release" role="tab" aria-controls="new-release" aria-selected="false">My Playlist</a>
-                        </li>
+                        </li> -->
                       </ul>
                       <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="top-picks" role="tabpanel" aria-labelledby="top-picks">
