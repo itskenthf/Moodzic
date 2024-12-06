@@ -18,35 +18,36 @@
             <h4 class="nav_heading">Menu</h4>
             <ul>
                 <li><a href="<?= base_url('home');?>" title="Home">
-                <span class="nav_icon">
-                    <i class="fa-solid fa-fire"></i>
-                </span>
-                <span class="nav_text">
-                    Explore
-                </span>
-                </a>
+                    <span class="nav_icon">
+                        <i class="fa-solid fa-fire"></i>
+                    </span>
+                    <span class="nav_text">
+                        Explore
+                    </span>
+                    </a>
+                </li>
+
+                <li><a href="<?= base_url('happy');?>" title="Happy">
+                    <span class="nav_icon">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </span>
+                    <span class="nav_text">
+                        Happy
+                    </span>
+                    </a>
                 </li>
 
             </ul>
             <h4 class="nav_heading">Your Music</h4>
             <ul class="nav_downloads">
-                <li><a href="<?= base_url('allmusic');?>" title="Music">
+                <li><a href="<?= base_url('favourite')?>" title="Favourites">
                     <span class="nav_icon">
-                        <i class="fa-solid fa-music"></i>
+                        <i class="fa-solid fa-heart"></i>
                     </span>
                     <span class="nav_text">
-                        Songs
+                        favourites
                     </span>
                     </a>
-                </li>
-                <li><a href="<?= base_url('favourite')?>" title="Favourites">
-                <span class="nav_icon">
-                    <i class="fa-solid fa-heart"></i>
-                </span>
-                <span class="nav_text">
-                    favourites
-                </span>
-                </a>
                 </li>
                 <li>
                     <a href="<?= base_url('app')?>" title="Albums">
@@ -56,6 +57,15 @@
                         <span class="nav_text">
                             albums
                         </span>
+                    </a>
+                </li>
+                <li><a href="<?= base_url('allmusic');?>" title="Music">
+                    <span class="nav_icon">
+                        <i class="fa-solid fa-music"></i>
+                    </span>
+                    <span class="nav_text">
+                        Songs
+                    </span>
                     </a>
                 </li>
             </ul>

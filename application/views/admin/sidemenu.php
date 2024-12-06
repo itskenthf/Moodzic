@@ -6,12 +6,12 @@
         <div class="">
             <div class="">
                 <a href="<?= base_url('admin')?>">
-                    <img src="<?= base_url('assetsmoods/images/mood.png')?>" alt="logo" class="img-fluid" width="200px"/>
+                    <img src="<?= base_url('assets/media/music-wall/logo.png')?>" alt="logo" class="img-fluid" width="190px"/>
                     <!-- <strong>MoodZic</strong> -->
                 </a>
             </div>
             <div class="ms_logo_mini">
-                <a href="<?= base_url('assetsmoods/images/mood.png')?>" alt="mini_logo" class="img-fluid"/></a>
+                <a href="<?= base_url('assets/media/music-wall/logo.png')?>" alt="mini_logo" class="img-fluid"/></a>
             </div>
         </div>
         <div class="ms_nav_wrapper">

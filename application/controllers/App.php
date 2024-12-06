@@ -29,7 +29,7 @@ class App extends CI_Controller {
 		// Get a random song from the database
 		$this->db->order_by('RAND()');
 		$this->db->limit(1);
-		$query = $this->db->get('songs'); // Replace 'songs' with your actual table name
+		$query = $this->db->get('songs');
 
 		if ($query->num_rows() > 0) {
 			$song = $query->row();

@@ -649,7 +649,7 @@
 
                     function addToPlaylist(button, songName, artists, fileUrl) {
                         const filename = fileUrl.split('/').pop();
-                        
+
                         fetch('<?php echo base_url('app/addToPlaylist'); ?>', {
                             method: 'POST',
                             headers: {
@@ -663,7 +663,7 @@
                                 button.classList.add('added');
                                 button.innerHTML = '<i class="fa fa-check"></i>';
                                 alert('Song added to your playlist!');
-                                
+
                                 if (typeof loadMyPlaylist === 'function') {
                                     loadMyPlaylist();
                                 }
