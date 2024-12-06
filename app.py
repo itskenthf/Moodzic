@@ -48,7 +48,7 @@ emotion_to_mood = {
 }
 
 # Modify the recommend_songs function to use database
-def recommend_songs(mood, num_songs=5):
+def recommend_songs(mood):
     """
     Recommend songs based on the detected mood from database.
     """
@@ -79,9 +79,8 @@ def recommend_songs(mood, num_songs=5):
             FROM musics
             WHERE category = %s
             ORDER BY RAND()
-            LIMIT %s
         """
-        cursor.execute(query, (category, num_songs))
+        cursor.execute(query, (category,))
         songs = cursor.fetchall()
 
         cursor.close()
