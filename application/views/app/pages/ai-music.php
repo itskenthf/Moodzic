@@ -609,7 +609,7 @@
                                                         <div class="song-artist">${song.artists}</div>
                                                     </div>
                                                     <div class="song-controls">
-                                                        <button class="add-btn" onclick="addToPlaylist(this, '${song.name}', '${song.artists}', '${song.file_url}')">
+                                                        <button class="add-btn" onclick="addToPlaylist(this, '${song.name}', '${song.artists}', '${song.file_url}', ${song.category}, '${song.duration}', '${song.original_filename}')">
                                                             <i class="fa fa-plus"></i>
                                                         </button>
                                                         <button class="play-btn" onclick="togglePlay(this, '${song.file_url}')">
@@ -647,15 +647,12 @@
                         }
                     });
 
-                    function addToPlaylist(button, songName, artists, fileUrl) {
+                    function addToPlaylist(button, songName, artists, fileUrl, category, duration, originalFilename) {
                         const filename = fileUrl.split('/').pop();
 
                         fetch('<?php echo base_url('app/addToPlaylist'); ?>', {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: `song_name=${encodeURIComponent(songName)}&artists=${encodeURIComponent(artists)}&filename=${encodeURIComponent(filename)}&original_filename=${encodeURIComponent(filename)}`
+                            body: formData
                         })
                         .then(response => response.json())
                         .then(data => {
