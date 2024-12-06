@@ -62,7 +62,9 @@ class App extends CI_Controller {
 		$song_name = $this->input->post('song_name');
 		$artists = $this->input->post('artists');
 		$filename = $this->input->post('filename');
+		$category = $this->input->post('category');
 		$path = './uploads/musics'; // Fixed path prefix
+		$duration = $this->input->post('duration') ?? '3:00';
 		$original_filename = $this->input->post('original_filename');
 
 		// Check if song already exists for this user
@@ -94,9 +96,9 @@ class App extends CI_Controller {
 			'filename' => $filename,
 			'original_filename' => $original_filename,
 			'path' => $path,
-			'category' => 4,
+			'category' => $category,
 			'create_dt' => date('Y-m-d H:i:s'),
-			'duration' => '00:02:50', // Fixed duration format
+			'duration' => $duration, // Fixed duration format
 			'fav' => 0
 		);
 

@@ -70,7 +70,12 @@ def recommend_songs(mood, num_songs=5):
 
         query = """
             SELECT name, singer as artists,
-                   CONCAT('http://localhost/moodzic/uploads/musics/', filename) as file_url
+                   CONCAT('http://localhost/moodzic/uploads/musics/', filename) as file_url,
+                   category,
+                   filename,
+                   original_filename,
+                   duration,
+                   original_filename as original_filename
             FROM musics
             WHERE category = %s
             ORDER BY RAND()
