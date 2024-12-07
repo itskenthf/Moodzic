@@ -161,8 +161,6 @@
                             <span class="play_no"><?= $no++ ?></span>
                             <span class="play_hover">
                                 <i id="musicIcon-<?=$key['id']?>" class="fas fa-play"></i>
-                                <?/*<img src="<?= base_url();?>assetsmoods/images/svg/play_songlist.svg" alt="Play" class="img-fluid list_play">
-                                <img src="<?= base_url();?>assetsmoods/images/svg/sound_bars.svg" alt="bar" class="img-fluid list_play_bar"> */?>
                             </span>
                             </a>
                         </li>

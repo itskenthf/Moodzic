@@ -39,15 +39,6 @@
                     </span>
                     </a>
                 </li>
-                <li><a href="<?= base_url('favourite')?>" title="Favourites">
-                <span class="nav_icon">
-                    <i class="fa-solid fa-heart"></i>
-                </span>
-                <span class="nav_text">
-                    favourites
-                </span>
-                </a>
-                </li>
                 <li>
                     <a href="<?= base_url('app')?>" title="Albums">
                         <span class="nav_icon">
@@ -57,6 +48,15 @@
                             albums
                         </span>
                     </a>
+                </li>
+                <li><a href="<?= base_url('favourite')?>" title="Favourites">
+                <span class="nav_icon">
+                    <i class="fa-solid fa-heart"></i>
+                </span>
+                <span class="nav_text">
+                    favourites
+                </span>
+                </a>
                 </li>
             </ul>
 

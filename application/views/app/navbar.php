@@ -1,4 +1,4 @@
-<div class="ms_header">
+    <div class="ms_header">
     <div class="ms_header_inner">
         <div class="ms_top_left">
             <div class="ms_top_search">
@@ -12,7 +12,7 @@
             </div> -->
         </div>
         <div class="ms_top_right">
-            <div class="ms_pro_inner">                        
+            <div class="ms_pro_inner">
                 <!-- <div class="ms_pro_img"> <img src="https://dummyimage.com/50x50" alt="Profile"></div> -->
                 <div class="ms_pro_namewrap">
                     <span class="pro_name">Hello, <?=$this->session->userdata('username')?></span> <i class="fa fa-caret-down"></i>
@@ -28,7 +28,7 @@
                             <span class="common_drop_icon drop_logt"></span>Logout
                         </a>
                     </li>
-                </ul>                      
+                </ul>
             </div>
             <div class="ms_cmenu_toggle ms_menu_toggle">
                 <span></span>
@@ -38,3 +38,16 @@
         </div>
     </div>
 </div>
+
+<style>
+/* Search input styling */
+.ms_top_search .form-control {
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    transition: all 0.3s ease;
+}
+
+.ms_top_search .form-control:focus {
+    border-color: rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+</style>

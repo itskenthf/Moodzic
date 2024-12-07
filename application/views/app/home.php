@@ -27,7 +27,7 @@
 
         <!----Audio Player Section---->
         <? //$this->load->view('app/audio-player'); ?>
-        
+
     </div>
 
     <? $this->load->view('app/script'); ?>
@@ -37,9 +37,56 @@
     <? $this->load->view('app/script-my-playlist'); ?>
 
     <script type="text/javascript">
-        // ...existing code...
+        $(document).ready(function() {
+            // Trigger search on pressing the Enter key
+            $('#searchInput').on('keypress', function(e) {
+                if (e.which === 13) { // Enter key code is 13
+                    performSearch();
+                }
+            });
+
+            // Trigger search when the search icon is clicked
+            $('#searchIcon').on('click', function() {
+                performSearch();
+            });
+
+            // Perform AJAX search
+            function performSearch() {
+                var searchQuery = $('#searchInput').val();
+
+                if (searchQuery.trim() === '') {
+                    iziToast.warning({
+                        id: 'warning',
+                        message: 'Please enter a search criteria.',
+                        position: 'topRight',
+                        transitionIn: 'flipInX',
+                        transitionOut: 'flipOutX',
+                        timeout: '2000',
+                    });
+                    return;
+                }
+
+                $('.ms_loader').show();
+
+                $.ajax({
+                    url: base_url + 'search/searchResults',
+                    type: 'POST',
+                    data: { query: searchQuery },
+                    success: function(response) {
+                        $('.ms_loader').hide();
+                        $('#content-page-id').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        $('.ms_loader').hide();
+                        console.error('AJAX Error:', error);
+                    }
+                });
+            }
+        });
     </script>
-    
+
 </body>
 
 </html>
+
+</```rewritten_file>
