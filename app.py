@@ -7,7 +7,12 @@ import cv2
 import pandas as pd
 import numpy as np
 import time
-
+from threading import Thread, Lock
+from queue import Queue
+from collections import deque
+from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+import atexit
 
 # Database configuration
 db_config = {
@@ -136,6 +141,15 @@ CORS(app)  # Enable CORS for all routes
 current_mood = "Detecting..."  # Add this at the top of the file with other globals
 video_capture = None  # Global variable to store video capture object
 
+frame_lock = Lock()
+current_frame = None
+processing_frame = None
+is_detecting = False
+frame_queue = Queue(maxsize=2)  # Reduced queue size for lower latency
+last_processed_time = time.time()
+mood_buffer = deque(maxlen=3)  # Smaller buffer for faster updates
+executor = ThreadPoolExecutor(max_workers=2)  # Parallel processing
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -148,70 +162,132 @@ def detect():
 
 @app.route('/stop_detection')
 def stop_detection():
-    global video_capture, current_mood
+    global video_capture, current_mood, is_detecting, frame_queue
+    is_detecting = False
+    
+    # Clear the frame queue
+    while not frame_queue.empty():
+        try:
+            frame_queue.get_nowait()
+        except:
+            pass
+            
     if video_capture:
         video_capture.release()
         video_capture = None
+        
+    # Reset mood and cleanup resources
     current_mood = "Detecting..."
+    cv2.destroyAllWindows()
     return jsonify({"status": "stopped"})
 
 @app.route('/iframe')
 def iframe_view():
     return render_template('iframe.html')
 
-def generate_frames():
-    global video_capture, current_mood
+def process_frames():
+    global current_mood, is_detecting, last_processed_time
+    
+    while is_detecting:
+        try:
+            if frame_queue.empty():
+                time.sleep(0.016)  # Small sleep to prevent CPU spinning
+                continue
+                
+            frame = frame_queue.get(timeout=0.016)
+            current_time = time.time()
+            
+            # Process frame if enough time has passed
+            if current_time - last_processed_time >= 0.016:
+                try:
+                    detected_mood = detect_emotion(frame)
+                    
+                    if detected_mood:
+                        mood_buffer.append(detected_mood)
+                        # Use lock when updating shared resource
+                        with frame_lock:
+                            current_mood = max(set(mood_buffer), key=mood_buffer.count)
+                            print(f"Current mood updated to: {current_mood}")  # Debug print
+                    
+                    last_processed_time = current_time
+                except Exception as e:
+                    print(f"Error processing frame: {e}")
+                    
+        except Exception as e:
+            if is_detecting:  # Only print if we're still supposed to be running
+                print(f"Frame processing error: {e}")
+            continue
 
-    # Release existing capture if any
+def generate_frames():
+    global video_capture, is_detecting, frame_queue
+    
     if video_capture:
         video_capture.release()
-
+    
     video_capture = cv2.VideoCapture(0)
-    # Set camera resolution to match index.html view
+    # Optimize camera settings for 60fps
     video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-
-    emotion_count = {}
-    frame_skip = 5
-    frame_count = 0
-    detection_start_time = time.time()
-
+    video_capture.set(cv2.CAP_PROP_FPS, 60)
+    video_capture.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+    video_capture.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+    
+    is_detecting = True
+    process_thread = Thread(target=process_frames, daemon=True)
+    process_thread.start()
+    
+    frame_time = 1/60.0  # Target frame time for 60fps
+    last_frame_time = time.time()
+    
     try:
-        while True:
-            if video_capture is None:  # Check if detection was stopped
+        while is_detecting:  # Changed condition to check is_detecting
+            if video_capture is None:
                 break
-
+            
+            # Maintain consistent 60fps timing
+            current_time = time.time()
+            if current_time - last_frame_time < frame_time:
+                continue
+            
             ret, frame = video_capture.read()
             if not ret:
                 break
-
-            # Maintain aspect ratio when resizing
-            small_frame = cv2.resize(frame, (640, 480))  # Changed from 320, 240
-
-            if frame_count % frame_skip == 0:
-                detected_mood = detect_emotion(small_frame)
-                if detected_mood:
-                    current_mood = detected_mood
-                    emotion_count[current_mood] = emotion_count.get(current_mood, 0) + 1
-
-            frame_count += 1
-            # Add mood text with better positioning
-            cv2.putText(frame, f"Detected Mood: {current_mood}", (20, 50),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0), 2)
-
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
+            
+            try:
+                small_frame = cv2.resize(frame, (320, 240))
+                if not frame_queue.full():
+                    frame_queue.put_nowait(small_frame)
+            except:
+                pass
+            
+            with frame_lock:
+                fps = 1.0 / (time.time() - last_frame_time)
+                mood_text = f"Mood: {current_mood} (FPS: {int(fps)})"
+            
+            cv2.putText(frame, mood_text, (20, 50),
+                       cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+            
+            ret, buffer = cv2.imencode('.jpg', frame, 
+                                     [cv2.IMWRITE_JPEG_QUALITY, 70])  # Reduced quality for speed
+            frame_bytes = buffer.tobytes()
+            
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-            if time.time() - detection_start_time > 15:
-                video_capture.release()
-                video_capture = None
-                break
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+            
+            last_frame_time = current_time
+            
     finally:
+        is_detecting = False
         if video_capture:
             video_capture.release()
             video_capture = None
+        # Clear frame queue
+        while not frame_queue.empty():
+            try:
+                frame_queue.get_nowait()
+            except:
+                pass
+        cv2.destroyAllWindows()
 
 @app.route('/get_recommendations')
 def get_recommendations():
@@ -228,6 +304,20 @@ def cleanup(exception=None):
     if video_capture:
         video_capture.release()
         video_capture = None
+
+@atexit.register
+def cleanup_resources():
+    global video_capture, is_detecting, frame_queue
+    is_detecting = False
+    if video_capture:
+        video_capture.release()
+    cv2.destroyAllWindows()
+    # Clear frame queue
+    while not frame_queue.empty():
+        try:
+            frame_queue.get_nowait()
+        except:
+            pass
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)
