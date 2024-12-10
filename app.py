@@ -13,6 +13,8 @@ from collections import deque
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 import atexit
+import multiprocessing
+import signal
 
 # Database configuration
 db_config = {
@@ -305,6 +307,17 @@ def cleanup(exception=None):
         video_capture.release()
         video_capture = None
 
+def cleanup_semaphores():
+    """
+    Cleanup semaphore objects to avoid resource tracker warnings.
+    """
+    try:
+        semaphore_tracker = multiprocessing.resource_tracker._semaphore_tracker
+        if semaphore_tracker is not None:
+            semaphore_tracker._cleanup()
+    except Exception as e:
+        print(f"Error cleaning up semaphores: {e}")
+
 @atexit.register
 def cleanup_resources():
     global video_capture, is_detecting, frame_queue
@@ -318,6 +331,10 @@ def cleanup_resources():
             frame_queue.get_nowait()
         except:
             pass
+    cleanup_semaphores()  # Add this line to cleanup semaphores
 
 if __name__ == '__main__':
+    # Ensure cleanup on termination signals
+    signal.signal(signal.SIGTERM, lambda signum, frame: cleanup_resources())
+    signal.signal(signal.SIGINT, lambda signum, frame: cleanup_resources())
     app.run(debug=True, host='127.0.0.1', port=5000)
