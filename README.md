@@ -1,39 +1,27 @@
-### Moodzic Music Website
+# Moodzic
 
-## Backend Framework
-- PHP (>= 5.3.7)
-- CodeIgniter Framework (3.x)
-- GetID3 Library (Audio metadata parsing)
+Moodzic is an AI-powered music streaming platform that personalizes the listening experience based on a user's emotional state. Rather than simply playing songs, Moodzic helps users discover music that matches or complements how they feel, creating a more meaningful connection between emotion and music.
 
-## Frontend Technologies
-### Core Libraries
-- jQuery
-- Bootstrap 4.1.1
-- Font Awesome 6.6.0
+The platform allows users to browse, search, and stream music through an intuitive interface while providing personalized recommendations. Users can create playlists, manage their personal library, and explore tracks organized by genres, artists, albums, and mood categories. Administrators can manage the music catalog, users, and platform content through a dedicated administration panel.
 
-### Audio Related
-- to upload music into database:
-  - 'chmod 777 uploads' into terminal to give permission
-- jPlayer
-  - Supported formats: MP3, M4A, OGA, FLAC, WAV, WebMA
-  - Audio playlist support
-  - Volume control
-  - Custom audio player UI
+## Features
 
-### UI Components
-- Swiper (Slider/Carousel)
-- Nice Select (Custom select boxes)
-- mCustomScrollbar (Custom scrollbars)
-- Dropzone.js (File uploads)
-- iziToast (Notifications)
+- 😊 Emotion-based music recommendations
+- 🔍 Search songs, artists, albums, and genres
+- 📂 Create and manage personal playlists
+- ❤️ Save favorite tracks for quick access
+- 👤 User authentication and profile management
+- ☁️ Upload and manage music files
+- 🛠️ Admin dashboard for content and user management
+- 📱 Responsive interface for desktop
 
-## Development Tools
-- PHPUnit (4.x/5.x/9.x) - Testing
-- Git - Version Control
-- EditorConfig - Code style enforcement
+## Project Goal
 
-## Project Structure
-- MVC Architecture (CodeIgniter)
-- Separate Admin and App views
-- Modular JavaScript organization
-- Component-based frontend
+Moodzic was developed as a Final Year Project (FYP) to explore how emotion recognition and intelligent music recommendation can enhance the digital music listening experience. The project focuses on combining modern web technologies with emotion-aware recommendations to create a personalized music platform.
+
+## Tech Stack
+
+- **Backend:** PHP, CodeIgniter 3
+- **Frontend:** HTML, CSS, JavaScript, jQuery, Bootstrap
+- **Database:** MySQL
+- **Audio:** jPlayer, GetID3
